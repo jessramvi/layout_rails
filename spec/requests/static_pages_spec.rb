@@ -1,49 +1,42 @@
 require 'spec_helper'
 
 describe "Static pages" do
+
   subject { page }
 
   describe "Home page" do
+
     before { visit root_path }
 
     it { should have_selector('h1', text: 'Demo App') }
-
-    it { should have_selector('title', text: full_title('')) }
+    /it { should have_selector('title', text: full_title(' ')) }
+    it { should_not have_selector 'title', text: '| Inicio' }/
+  
   end
 
   describe "Help page" do
-    it "should have the h1 'Ayuda'" do
-      visit help_path
-      page.should have_selector('h1', text:'Ayuda')
-    end
 
-    it "should have the title 'Help'" do
-      visit help_path
-      page.should have_selector('title', 
-                    text: "Tutorial Ruby on Rails de la Demo App | Ayuda")
+    before { visit help_path }
+
+    it { should have_selector('h1', text:'Ayuda') }
+    /it { should have_selector('title', text: full_title('Ayuda')) }/
+  
   end
 
   describe "About page" do
-    it "should have the h1 'Sobre Nosotros'" do
-      visit about_path
-      page.should have_selector('h1', text:'Sobre Nosotros')
-    end
 
-    it "should have the title 'Sobre Nosotros'" do
-      visit about_path
-      page.should have_selector('title',
-                    text: "Tutorial Ruby on Rails de la Demo App | Sobre Nosotros")
-    end
+    before { visit about_path }
+    it { should have_selector('h1', text:'Sobre Nosotros') }
+    /it { should have_selector('title', text: full_title('Sobre Nosotros')) }/
+    
   end
 
   describe "Contact page" do
-    it "should have the h1 'Contacto'" do
-      visit contact_path
-      page.should have_selector('h1', text: 'Contacto')
-    end
 
-    it "should have the title 'Contacto'" do
-      visit contact_path
-      page.should have_selector('title',
-                    text: "Tutorial Ruby on Rails de la Demo App | Contacto")
+    before { visit contact_path }
+
+    it { should have_selector('h1', text: 'Contacto') }
+    /it { should have_selector('title', text: full_title('Contacto')) }/
+  
+  end
 end
